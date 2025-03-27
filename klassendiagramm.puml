@@ -1,0 +1,67 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+' ==== Basisklassen ====
+abstract class Fahrzeug {
+  - nummernschild : String
+  + getNummernschild() : String
+  + getTyp() : String
+}
+
+class Auto {
+  + getTyp() : String
+}
+
+class Motorrad {
+  + getTyp() : String
+}
+
+' ==== Beziehungen ====
+Fahrzeug <|-- Auto
+Fahrzeug <|-- Motorrad
+
+' ==== Parkplatz, Etage, Position ====
+class Parkplatz {
+  - istBesetzt : boolean
+  - fahrzeug : Fahrzeug
+  + belege(f : Fahrzeug) : void
+  + leeren() : void
+  + istFrei() : boolean
+}
+
+class Etage {
+  - nummer : int
+  - parkplaetze : List<Parkplatz>
+  + findeFreienPlatz() : Parkplatz
+}
+
+class Position {
+  + etageIndex : int
+  + parkplatzIndex : int
+}
+
+' ==== Parkhaus & Verwalter ====
+class Parkhaus {
+  - etagen : List<Etage>
+  + getFreiePlaetze() : int
+  + getEtagen() : List<Etage>
+}
+
+class ParkhausVerwalter {
+  + einparken(f : Fahrzeug) : boolean
+  + ausparken(nummernschild : String) : boolean
+  + sucheFahrzeug(nummernschild : String) : Position
+}
+
+class FahrzeugFactory {
+  + erzeugeFahrzeug(typ : String, nummernschild : String) : Fahrzeug
+}
+
+' ==== Beziehungen ====
+Etage "1" *-- "viele" Parkplatz
+Parkhaus "1" *-- "viele" Etage
+Parkplatz o-- Fahrzeug
+ParkhausVerwalter ..> Parkhaus
+ParkhausVerwalter ..> Position
+FahrzeugFactory ..> Fahrzeug
+@enduml
