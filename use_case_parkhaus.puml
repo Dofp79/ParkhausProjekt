@@ -1,0 +1,23 @@
+@startuml ParkhausUseCase
+left to right direction
+
+actor Fahrer
+actor Verwalter
+
+rectangle "Parkhaus-System" {
+    usecase "Fahrzeug einparken" as UC1
+    usecase "Fahrzeug ausparken" as UC2
+    usecase "Fahrzeugstandort suchen" as UC3
+    usecase "Freie Plätze anzeigen" as UC4
+    usecase "Konfiguration ändern/laden" as UC5
+    usecase "Fahrzeugtyp wählen" as UC6
+}
+
+Fahrer --> UC1
+Fahrer --> UC2
+Fahrer --> UC6
+
+Verwalter --> UC3
+Verwalter --> UC4
+Verwalter --> UC5
+@enduml
